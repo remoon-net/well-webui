@@ -1,0 +1,11 @@
+@import 'tailwindcss';
+@plugin "daisyui";
+
+.container {
+	padding-left: 1rem;
+	padding-right: 1rem;
+}
+
+.label {
+	white-space: normal;
+}

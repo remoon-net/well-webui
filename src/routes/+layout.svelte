@@ -1,14 +1,17 @@
 <script lang="ts">
-	import { page } from '$app/state';
-	import { locales, localizeHref } from '$lib/paraglide/runtime';
-	import favicon from '$lib/assets/favicon.svg';
+	import '../app.css'
+	import { page } from '$app/state'
+	import { locales, localizeHref } from '$lib/paraglide/runtime'
+	import favicon from '$lib/assets/favicon.svg'
+	import SEO from './seo.svelte'
+	import Toast from '$lib/Toast.svelte'
 
-	let { children } = $props();
+	let { children } = $props()
 </script>
 
+<SEO></SEO>
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
 
-{@render children()}
 <div style="display:none">
 	{#each locales as locale}
 		<a href={localizeHref(page.url.pathname, { locale })}>
@@ -16,3 +19,7 @@
 		</a>
 	{/each}
 </div>
+
+<Toast>
+	{@render children()}
+</Toast>
