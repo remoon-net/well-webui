@@ -1,8 +1,8 @@
 <script lang="ts" module>
 	import { getContext, type Snippet } from 'svelte'
 	export const key = Symbol('')
-	export function setActions(btns: Snippet) {
-		let setActions: (btns: Snippet) => void = getContext(key)
+	export function setActions(btns: Snippet | undefined) {
+		let setActions: (btns: Snippet | undefined) => void = getContext(key)
 		setActions(btns)
 	}
 </script>

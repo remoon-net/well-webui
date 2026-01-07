@@ -49,6 +49,8 @@
 	})
 	let pending = withPending()
 	let showToast = getShowToast()
+	import { setActions } from '../header.svelte'
+	setActions(undefined)
 </script>
 
 <div class="container mx-auto my-6">

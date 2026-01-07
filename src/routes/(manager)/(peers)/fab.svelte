@@ -40,7 +40,7 @@
 					(err) => {
 						showToast({
 							color: 'error',
-							msg: `停止出错: ${errStr(err)}`,
+							msg: `WireGuard停止出错: ${errStr(err)}`,
 						})
 					},
 				)
@@ -63,7 +63,7 @@
 					(err) => {
 						showToast({
 							color: 'error',
-							msg: `启动出错: ${errStr(err)}`,
+							msg: `WireGuard启动出错: ${errStr(err)}`,
 						})
 					},
 				)

@@ -50,7 +50,7 @@ export interface ICE extends BaseModel {
 export const enum LinkerStatus {
 	Ready = '',
 	Connecting = 'connecting',
-	Connected = 'Connected',
+	Connected = 'connected',
 }
 
 export interface Linker extends BaseModel {

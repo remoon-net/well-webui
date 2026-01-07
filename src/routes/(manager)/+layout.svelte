@@ -8,9 +8,6 @@
 	setContext(ctxKey, (btns: Snippet) => {
 		actions = btns
 	})
-	beforeNavigate(() => {
-		actions = undefined
-	})
 </script>
 
 <div class="flex flex-col min-h-screen">

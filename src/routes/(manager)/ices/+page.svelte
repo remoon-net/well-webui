@@ -117,7 +117,7 @@
 						(err) => {
 							showToast({
 								color: 'error',
-								msg: `登录出错: ${errStr(err)}`,
+								msg: `ICE更新出错: ${errStr(err)}`,
 							})
 						},
 					)
@@ -256,7 +256,7 @@
 							(err) => {
 								showToast({
 									color: 'error',
-									msg: `登录出错: ${errStr(err)}`,
+									msg: `ICE删除出错: ${errStr(err)}`,
 								})
 							},
 						)
