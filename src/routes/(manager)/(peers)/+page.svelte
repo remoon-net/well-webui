@@ -2,7 +2,7 @@
 	import Iconify from '@iconify/svelte'
 	let { data } = $props()
 	import Panel from './panel.svelte'
-	import { invalidate } from '$app/navigation'
+	import { invalidate, invalidateAll } from '$app/navigation'
 	import { DateTime } from 'luxon'
 	let expired = $derived.by(() => {
 		data
@@ -31,7 +31,7 @@
 		disabled={pending.value}
 		onclick={() => {
 			pending.call(async () => {
-				await invalidate('app:peers')
+				await invalidateAll()
 			})
 		}}
 	>
