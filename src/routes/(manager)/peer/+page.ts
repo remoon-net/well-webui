@@ -17,8 +17,8 @@ export async function load({ fetch, url, depends }) {
 		ices: [],
 		ipv4: 'auto',
 		ipv6: '',
-		endpoint: '',
-		endpoint2: '',
+		whip: '',
+		whip2: '',
 		auto: 0,
 	} as any
 	if (id !== 'add') {

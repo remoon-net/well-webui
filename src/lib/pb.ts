@@ -30,8 +30,8 @@ export interface Peer extends BaseModel {
 	ipv4: string
 	ip_num: number
 	ipv6: string
-	endpoint: string
-	endpoint2: string
+	whip: string
+	whip2: string
 	auto: number
 	expand: {
 		ip4in6?: string

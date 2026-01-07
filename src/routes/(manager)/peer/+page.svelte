@@ -38,7 +38,7 @@
 		useDefaultICEs = p.ices.length == 0
 		switch (true) {
 			case p.psk != '':
-			case p.endpoint2 != '':
+			case p.whip2 != '':
 			case p.transport_mode.length > 0:
 			case p.ices.length > 0:
 				moreOptsOpened = true
@@ -102,7 +102,7 @@
 		</fieldset>
 		<fieldset class="fieldset">
 			<fieldset-legend class="fieldset-legend">
-				<div>连接地址 (endpoint)</div>
+				<div>信令地址 (whip)</div>
 				<label class="label">
 					始终连接
 					<input
@@ -116,11 +116,11 @@
 				</label>
 			</fieldset-legend>
 			<input
-				name="endpoint"
+				name="whip"
 				type="url"
 				class="input w-full"
 				placeholder="https://well.remoon.net/peer/xxxyyyzzz"
-				value={p.endpoint}
+				value={p.whip}
 				disabled={pending.value}
 			/>
 			<div class="label">连接地址. 启用始终连接后将会始终连接此节点</div>
@@ -130,13 +130,13 @@
 			<div class="collapse-title ps-0">进阶选项</div>
 			<div class="collapse-content px-0">
 				<fieldset class="fieldset">
-					<fieldset-legend class="fieldset-legend">备用连接地址 (endpoint2)</fieldset-legend>
+					<fieldset-legend class="fieldset-legend">备用连接地址 (whip2)</fieldset-legend>
 					<input
-						name="endpoint2"
+						name="whip2"
 						type="url"
 						class="input w-full"
 						placeholder="https://well.remoon.net/peer/xxxyyyzzz2"
-						value={p.endpoint2}
+						value={p.whip2}
 						disabled={pending.value}
 					/>
 					<div class="label">备用连接地址. 希望永不失联</div>
@@ -338,7 +338,7 @@
 							(err) => {
 								showToast({
 									color: 'error',
-									msg: `登录出错: ${errStr(err)}`,
+									msg: `节点删除出错: ${errStr(err)}`,
 								})
 							},
 						)
