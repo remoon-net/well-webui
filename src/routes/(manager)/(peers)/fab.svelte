@@ -25,7 +25,7 @@
 	<button type="button" class="btn btn-lg btn-circle btn-primary" disabled={pending.value}>
 		<span class="loading loading-spinner">pending</span>
 	</button>
-{:else if data.running}
+{:else if data.ds.Running}
 	<button
 		type="button"
 		class="btn btn-lg btn-circle btn-error"

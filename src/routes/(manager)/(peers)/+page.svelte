@@ -9,13 +9,18 @@
 		let now = DateTime.now()
 		return now.plus({ seconds: -120 })
 	})
+	const showToast = getShowToast()
 	import Edit from '@iconify-icons/heroicons/pencil-square'
 	import Plus from '@iconify-icons/heroicons/plus'
 	import Refresh from '@iconify-icons/heroicons/arrow-path'
 	import Connected from '@iconify-icons/heroicons/link'
+	import Copy from '@iconify-icons/heroicons/clipboard'
+	import PubkeyICON from '@iconify-icons/heroicons/computer-desktop'
+	import { copy } from 'svelte-copy'
 	let pending = withPending()
 	import { setActions } from '../header.svelte'
 	import { withPending } from '$lib/pending.svelte'
+	import { getShowToast } from '$lib/Toast.svelte'
 	setActions(actions)
 </script>
 
@@ -44,6 +49,46 @@
 <Panel></Panel>
 <div class="container mx-auto">
 	<ul class="list">
+		{#if true}
+			{@const connected = data.ds.Running}
+			{@const routes = data.ds.Routes}
+			<li class="list-row px-0">
+				<div class="label">
+					<button
+						type="button"
+						class="btn btn-sm btn-square btn-outline"
+						class:btn-success={connected}
+					>
+						<Iconify icon={PubkeyICON}></Iconify>
+					</button>
+				</div>
+				<div>
+					<div class="mb-1">
+						<span>{data.ds.Pubkey}</span>
+						(本机)
+					</div>
+					<div>
+						<span class="label">IPv4</span>:
+						<span class:label={!connected}>{routes[1]}</span>
+						<br />
+						<span class="label">IPv6</span>: <span class:label={!connected}>{routes[0]}</span>
+					</div>
+				</div>
+				<button
+					type="button"
+					class="btn btn-square btn-ghost self-center tooltip tooltip-left"
+					data-tip="复制公钥"
+					use:copy={{
+						text: data.ds.Pubkey,
+						onCopy: () => {
+							showToast({ msg: '复制公钥成功' })
+						},
+					}}
+				>
+					<Iconify icon={Copy}></Iconify>
+				</button>
+			</li>
+		{/if}
 		{#each data.peers as p, i}
 			{@const handshaked = DateTime.fromSQL(p.handshaked)}
 			{@const connected = handshaked > expired}

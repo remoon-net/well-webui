@@ -56,6 +56,9 @@ importers:
       svelte-check:
         specifier: ^4.3.5
         version: 4.3.5(picomatch@4.0.3)(svelte@5.46.1)(typescript@5.9.3)
+      svelte-copy:
+        specifier: ^2.0.0
+        version: 2.0.0(svelte@5.46.1)
       tailwindcss:
         specifier: ^4.1.18
         version: 4.1.18
@@ -830,6 +833,11 @@ packages:
       svelte: ^4.0.0 || ^5.0.0-next.0
       typescript: '>=5.0.0'
 
+  svelte-copy@2.0.0:
+    resolution: {integrity: sha512-wJ784qrc9CF7EtrlT2kwJfHnqae/pp4fkgzYeUxex4iFBm6HosT2904t5cZZ1GAZzg/z9V+lCZVP5rpiYsN6Tw==}
+    peerDependencies:
+      svelte: ^5.0.0
+
   svelte@5.46.1:
     resolution: {integrity: sha512-ynjfCHD3nP2el70kN5Pmg37sSi0EjOm9FgHYQdC4giWG/hzO3AatzXXJJgP305uIhGQxSufJLuYWtkY8uK/8RA==}
     engines: {node: '>=18'}
@@ -1522,6 +1530,10 @@ snapshots:
       typescript: 5.9.3
     transitivePeerDependencies:
       - picomatch
+
+  svelte-copy@2.0.0(svelte@5.46.1):
+    dependencies:
+      svelte: 5.46.1
 
   svelte@5.46.1:
     dependencies:

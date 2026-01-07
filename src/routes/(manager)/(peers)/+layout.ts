@@ -4,19 +4,17 @@ export async function load({ parent, depends, fetch }) {
 	let { subnavs } = await parent()
 
 	depends('wg:status')
-	let running = await pb.send('/api/ipc/device', { fetch }).then(
-		() => {
-			return true
-		},
-		(e) => {
-			// console.error(e)
-			return false
-		},
-	)
+
+	let ds = await pb.send<DeviceStatus>('/api/ipc/device', { fetch })
 
 	return {
 		subnavs: [...subnavs, { name: 'well net', link: '/' }],
-		running: running,
-		routes: ['fdd9:f800::1/24', '192.168.211.1/20'],
+		ds: ds,
 	}
+}
+
+interface DeviceStatus {
+	Pubkey: string
+	Routes: string[]
+	Running: boolean
 }
