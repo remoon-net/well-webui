@@ -21,7 +21,17 @@
 	import { setActions } from '../header.svelte'
 	import { withPending } from '$lib/pending.svelte'
 	import { getShowToast } from '$lib/Toast.svelte'
+	import { onMount } from 'svelte'
+	import { LinkerStatus } from '$lib/pb.js'
 	setActions(actions)
+	onMount(() => {
+		let t = setInterval(() => {
+			invalidate('wg:status')
+		}, 2e3)
+		return () => {
+			clearInterval(t)
+		}
+	})
 </script>
 
 {#snippet actions()}
@@ -31,7 +41,7 @@
 		disabled={pending.value}
 		onclick={() => {
 			pending.call(async () => {
-				await invalidateAll()
+				await invalidate('app:peers')
 			})
 		}}
 	>
@@ -72,6 +82,22 @@
 						<span class:label={!connected}>{routes[1]}</span>
 						<br />
 						<span class="label">IPv6</span>: <span class:label={!connected}>{routes[0]}</span>
+						<br />
+						<a href="/linkers/" class="label link">WHIP</a>:
+						<div class="inline">
+							{#if data.linkers.length === 0}
+								<a href="/linkers" class="link">暂无信令中继器, 点击去设置</a>
+							{/if}
+							{#each data.linkers as lk}
+								{#if lk.disabled}
+									<span class="me-1 text-neutral">O</span>
+								{:else if lk.status == LinkerStatus.Connected}
+									<span class="me-1 text-success">O</span>
+								{:else}
+									<span class="me-1 text-warning">o</span>
+								{/if}
+							{/each}
+						</div>
 					</div>
 				</div>
 				<button
@@ -97,8 +123,10 @@
 				<div class="label">
 					<button
 						type="button"
-						class="btn btn-sm btn-square btn-outline"
+						class="btn btn-sm btn-square"
 						disabled={p.disabled}
+						class:btn-outline={p.auto == 0}
+						class:btn-dash={p.auto > 0}
 						class:btn-success={connected}
 					>
 						<Iconify icon={Connected}></Iconify>
