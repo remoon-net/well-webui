@@ -160,7 +160,7 @@
 					name="urls"
 					type="url"
 					class="input w-full"
-					placeholder="stun://stun.remoon.net:80"
+					placeholder="stun:stun.remoon.net:80"
 					bind:value={iceState.urls}
 					disabled={pending.value}
 					required
