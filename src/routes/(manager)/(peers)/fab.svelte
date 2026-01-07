@@ -8,7 +8,11 @@
 	import { page } from '$app/state'
 	let data = $derived(page.data as PageData)
 	async function startWG() {
-		await pb.send('/api/ipc/device', { method: 'post' })
+		if (data.ds.Android) {
+			await pb.send('/api/ipc/device/android/start', { method: 'get' })
+		} else {
+			await pb.send('/api/ipc/device', { method: 'post' })
+		}
 		await invalidate('wg:status')
 	}
 	async function stopWG() {

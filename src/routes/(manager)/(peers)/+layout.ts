@@ -17,4 +17,5 @@ interface DeviceStatus {
 	Pubkey: string
 	Routes: string[]
 	Running: boolean
+	Android: boolean
 }
