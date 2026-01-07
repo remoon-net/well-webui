@@ -9,7 +9,10 @@
 	let data = $derived(page.data as PageData)
 	async function startWG() {
 		if (data.ds.Android) {
-			await pb.send('/api/ipc/device/android/start', { method: 'get' })
+			await pb.send('/api/ipc/device/android/start', {
+				method: 'get',
+				query: { devlocker: 'false' },
+			})
 		} else {
 			await pb.send('/api/ipc/device', { method: 'post' })
 		}
