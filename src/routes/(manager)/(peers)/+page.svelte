@@ -11,11 +11,31 @@
 	})
 	import Edit from '@iconify-icons/heroicons/pencil-square'
 	import Plus from '@iconify-icons/heroicons/plus'
+	import Refresh from '@iconify-icons/heroicons/arrow-path'
+	import Connected from '@iconify-icons/heroicons/link'
+	let pending = withPending()
 	import { setActions } from '../header.svelte'
+	import { withPending } from '$lib/pending.svelte'
 	setActions(actions)
 </script>
 
 {#snippet actions()}
+	<button
+		type="button"
+		class="btn btn-square btn-ghost"
+		disabled={pending.value}
+		onclick={() => {
+			pending.call(async () => {
+				await invalidate('app:peers')
+			})
+		}}
+	>
+		{#if pending.value}
+			<span class="loading loading-spinner loading-xs"></span>
+		{:else}
+			<Iconify icon={Refresh}></Iconify>
+		{/if}
+	</button>
 	<a href="/peer/?id=add" class="btn btn-square btn-ghost">
 		<Iconify icon={Plus}></Iconify>
 	</a>
@@ -29,20 +49,22 @@
 			{@const connected = handshaked > expired}
 			{@const ip4in6 = p.expand.ip4in6}
 			<li class="list-row px-0">
-				<div class="label tooltip tooltip-right" data-tip="始终连接">
-					<input
-						type="checkbox"
-						class="checkbox"
-						name="default"
-						value="true"
-						readonly
-						checked={p.auto > 0}
-						onclick={(e) => e.preventDefault()}
-					/>
+				<div class="label">
+					<button
+						type="button"
+						class="btn btn-sm btn-square btn-outline"
+						disabled={p.disabled}
+						class:btn-success={connected}
+					>
+						<Iconify icon={Connected}></Iconify>
+					</button>
 				</div>
 				<div>
 					<div class="mb-1">
-						{p.name || p.pubkey}
+						<span class:label={p.disabled}>{p.name || p.pubkey}</span>
+						{#if p.disabled}
+							(未启用)
+						{/if}
 					</div>
 					<div>
 						<span class="label">IPv4</span>:

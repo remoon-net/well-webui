@@ -16,6 +16,9 @@
 		if (!form.get('auto')) {
 			form.set('auto', '')
 		}
+		if (!form.get('disabled')) {
+			form.set('disabled', 'false')
+		}
 		if (!p.id) {
 			let p = await pb.collection<Peer>('peers').create(form)
 			await goto(`?id=${p.id}`, { replaceState: true })
@@ -89,7 +92,20 @@
 			<div class="label">未填写的话则会使用id来做显示</div>
 		</fieldset>
 		<fieldset class="fieldset">
-			<fieldset-legend class="fieldset-legend">公钥* (pubkey)</fieldset-legend>
+			<fieldset-legend class="fieldset-legend">
+				<span>公钥* (pubkey)</span>
+				<label class="label">
+					禁用
+					<input
+						type="checkbox"
+						name="disabled"
+						value="true"
+						checked={p.disabled}
+						class="toggle"
+						disabled={pending.value}
+					/>
+				</label>
+			</fieldset-legend>
 			<input
 				name="pubkey"
 				type="text"
@@ -104,7 +120,7 @@
 		</fieldset>
 		<fieldset class="fieldset">
 			<fieldset-legend class="fieldset-legend">
-				<div>信令地址 (whip)</div>
+				<span>信令地址 (whip)</span>
 				<label class="label">
 					始终连接
 					<input
