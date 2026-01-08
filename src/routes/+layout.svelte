@@ -2,7 +2,6 @@
 	import '../app.css'
 	import { page } from '$app/state'
 	import { locales, localizeHref } from '$lib/paraglide/runtime'
-	import favicon from '$lib/assets/favicon.svg'
 	import SEO from './seo.svelte'
 	import Toast from '$lib/Toast.svelte'
 
@@ -10,7 +9,7 @@
 </script>
 
 <SEO></SEO>
-<svelte:head><link rel="icon" href={favicon} /></svelte:head>
+<svelte:head><link rel="icon" href="favicon.ico" /></svelte:head>
 
 <div style="display:none">
 	{#each locales as locale}
