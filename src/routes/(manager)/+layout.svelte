@@ -30,7 +30,7 @@
 				{
 					name: '设置',
 					link: '/settings/',
-					disabled: true,
+					// disabled: true,
 				},
 			]}
 		/>

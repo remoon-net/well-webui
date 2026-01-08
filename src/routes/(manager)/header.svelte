@@ -23,6 +23,7 @@
 	let { navs, actions }: Props = $props()
 	import Icon from '@iconify/svelte'
 	import Bars3 from '@iconify-icons/heroicons/bars-3'
+	import CloseSide from '@iconify-icons/heroicons/chevron-left'
 	import { page } from '$app/state'
 	import { beforeNavigate } from '$app/navigation'
 	let navs2 = $derived((page.data.subnavs as Nav[]).slice(-2).reverse())
@@ -83,6 +84,11 @@
 					{/if}
 				</li>
 			{/each}
+			<li>
+				<label for="drawer-nav">
+					收起侧边栏<Icon icon={CloseSide}></Icon>
+				</label>
+			</li>
 		</ul>
 	</div>
 </div>
