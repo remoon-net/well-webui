@@ -75,7 +75,7 @@
 				<div>
 					<div class="mb-1">
 						<span>{data.ds.Pubkey}</span>
-						(本机)
+						(本机公钥)
 					</div>
 					<div>
 						<span class="label">IPv4</span>:
