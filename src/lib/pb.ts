@@ -1,7 +1,8 @@
-import PocketBase from 'pocketbase'
+import PocketBase, { LocalAuthStore } from 'pocketbase'
 import type { RecordModel } from 'pocketbase'
 
-export const pb = new PocketBase()
+const store = new LocalAuthStore('__pb_superuser_auth__')
+export const pb = new PocketBase(undefined, store)
 
 export function errStr(err: any): string {
 	console.error(err)
