@@ -268,20 +268,6 @@
 						</div>
 					</div>
 				</fieldset>
-				<fieldset class="fieldset">
-					<fieldset-legend class="fieldset-legend">共享公钥 (psk)</fieldset-legend>
-					<input
-						name="psk"
-						type="text"
-						class="input w-full"
-						placeholder="由 wg genpsk 生成"
-						value={p.psk}
-						disabled={pending.value}
-					/>
-					<div class="label">
-						这个共享公钥据说可以用以对抗后量子时代, 但目前感觉没啥用, 所以放在进阶选项中
-					</div>
-				</fieldset>
 			</div>
 		</div>
 		<div class="my-6">
