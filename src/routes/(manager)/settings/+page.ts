@@ -11,9 +11,11 @@ export async function load({ fetch, depends }) {
 
 interface Settings {
 	auto_start: boolean
+	ip6_addr: string
 	ip4_route: string
 	listen: string
 	tun: string
 	wg_key: string
-  running: boolean
+	running: boolean
+	mac: string
 }

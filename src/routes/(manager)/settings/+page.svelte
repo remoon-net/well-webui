@@ -24,6 +24,40 @@
 		}
 	}
 	let showToast = getShowToast()
+	let ip6Input = $state<HTMLInputElement>()
+	function mac2EUI64() {
+		let mac = prompt('粘贴网卡MAC地址', settings.mac)
+		if (!mac) {
+			return
+		}
+		const bytes = mac.split(':').map((b) => parseInt(b, 16))
+		if (bytes.length !== 6) {
+			alert('错误的MAC地址!')
+			return
+		}
+
+		// Flip the U/L bit (bit 7 of first byte)
+		bytes[0] ^= 0x02
+
+		// Insert ff:fe in the middle
+		const eui64 = [bytes[0], bytes[1], bytes[2], 0xff, 0xfe, bytes[3], bytes[4], bytes[5]]
+
+		let s = eui64.map((b) => b.toString(16).padStart(2, '0')).join(':')
+		console.log(s)
+
+		const parts = []
+		for (let i = 0; i < 8; i += 2) {
+			// 每两字节合成一个 16-bit hex
+			const part = (eui64[i] << 8) | eui64[i + 1]
+			parts.push(part.toString(16).padStart(4, '0'))
+		}
+		let s2 = parts.join(':')
+		console.log(s2)
+
+		let s3 = `fdd9:f8ff::1:${s2}`
+		console.log(s3)
+		ip6Input!.value = s3
+	}
 </script>
 
 <div class="container mx-auto my-6">
@@ -79,6 +113,22 @@
 			<div class="label">修改私钥将会导致其他节点无法连接你, 谨慎修改</div>
 		</fieldset>
 		<fieldset class="fieldset">
+			<fieldset-legend class="fieldset-legend">IPv6唯一地址 (ip6_addr)</fieldset-legend>
+			<div class="join">
+				<input
+					name="ip6_addr"
+					type="text"
+					class="input w-full"
+					placeholder="fdd9:f800::1"
+					value={settings.ip6_addr}
+					bind:this={ip6Input}
+					disabled={pending.value}
+				/>
+				<button type="button" class="btn" onclick={mac2EUI64}>使用MAC生成</button>
+			</div>
+			<div class="label">设置唯一IPv6地址, 由MAC地址生成(EUI-64)</div>
+		</fieldset>
+		<fieldset class="fieldset">
 			<fieldset-legend class="fieldset-legend">监听地址 (ip4_route)</fieldset-legend>
 			<input
 				name="ip4_route"
@@ -90,7 +140,6 @@
 			/>
 			<div class="label">IPv4路由冲突的话可以修改这个</div>
 		</fieldset>
-
 		<div class="join flex gap-4">
 			<div class="join-item flex-1">
 				<fieldset class="fieldset">
