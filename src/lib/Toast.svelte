@@ -38,10 +38,10 @@
 	}
 </script>
 
+{@render children()}
+
 <div class="toast toast-top toast-start z-999">
 	{#each Array.from(toasts).reverse() as [k, item] (k)}
 		<ToastItem {item} {hide}></ToastItem>
 	{/each}
 </div>
-
-{@render children()}
