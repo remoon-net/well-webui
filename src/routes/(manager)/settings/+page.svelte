@@ -113,7 +113,7 @@
 			<div class="label">修改私钥将会导致其他节点无法连接你, 谨慎修改</div>
 		</fieldset>
 		<fieldset class="fieldset">
-			<fieldset-legend class="fieldset-legend">IPv6唯一地址 (ip6_addr)</fieldset-legend>
+			<fieldset-legend class="fieldset-legend">固定 IPv6 地址 (ip6_addr)</fieldset-legend>
 			<div class="join">
 				<input
 					name="ip6_addr"
@@ -126,7 +126,7 @@
 				/>
 				<button type="button" class="btn" onclick={mac2EUI64}>使用MAC生成</button>
 			</div>
-			<div class="label">设置唯一IPv6地址, 由MAC地址生成(EUI-64)</div>
+			<div class="label">设置固定 IPv6 地址, 由网卡MAC地址生成(EUI-64)</div>
 		</fieldset>
 		<fieldset class="fieldset">
 			<fieldset-legend class="fieldset-legend">监听地址 (ip4_route)</fieldset-legend>

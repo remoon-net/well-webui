@@ -217,7 +217,7 @@
 						value={p.ipv6}
 						disabled={pending.value}
 					/>
-					<div class="label">一般是固定 IPv6 会设置这个, IP范围在 fdd9:f800::/32</div>
+					<div class="label">一般是固定 IPv6 地址会设置这个, IP范围在 fdd9:f8ff::/32</div>
 				</fieldset>
 				<fieldset class="fieldset">
 					<fieldset-legend class="fieldset-legend">共享公钥 (psk)</fieldset-legend>
