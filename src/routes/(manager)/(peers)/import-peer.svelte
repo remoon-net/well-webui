@@ -4,7 +4,7 @@
 	import { getShowToast } from '$lib/Toast.svelte'
 
 	let pending = withPending()
-	let open = $state(true)
+	let open = $state(false)
 	const showToast = getShowToast()
 	import { page } from '$app/state'
 	let slElem = $state<HTMLTextAreaElement>()
