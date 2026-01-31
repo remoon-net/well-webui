@@ -25,14 +25,13 @@
 	}
 	let showToast = getShowToast()
 	let ip6Input = $state<HTMLInputElement>()
-	function mac2EUI64() {
-		let mac = prompt('粘贴网卡MAC地址', settings.mac)
-		if (!mac) {
-			return
-		}
+	function mac2EUI64(mac: string) {
 		const bytes = mac.split(':').map((b) => parseInt(b, 16))
 		if (bytes.length !== 6) {
-			alert('错误的MAC地址!')
+			showToast({
+				color: 'error',
+				msg: '错误的MAC地址!',
+			})
 			return
 		}
 
@@ -58,7 +57,61 @@
 		console.log(s3)
 		ip6Input!.value = s3
 	}
+	let open = $state(false)
+	let macInput = $state<HTMLInputElement>()
+	$effect(() => {
+		if (!open) {
+			return
+		}
+		tick().then(() => {
+			macInput!.select()
+		})
+	})
 </script>
+
+<input type="checkbox" id="mac_input_modal" class="modal-toggle" bind:checked={open} />
+<div class="modal" role="dialog">
+	<div class="modal-box p-4">
+		<form
+			action="/peer/"
+			method="get"
+			onsubmit={(e) => {
+				e.preventDefault()
+				let data = new FormData(e.currentTarget)
+				let mac = data.get('mac') as string
+				mac2EUI64(mac)
+				open = false
+			}}
+		>
+			<h3 class="text-lg font-bold">节点导入</h3>
+			<input type="hidden" name="id" value="add" />
+			<fieldset class="fieldset">
+				<fieldset-legend class="fieldset-legend">网卡MAC地址</fieldset-legend>
+				<input
+					type="text"
+					class="input w-full"
+					name="mac"
+					value={settings.mac}
+					bind:this={macInput}
+					required
+				/>
+				<div class="label">
+					默认有的话是获取到的第一张网卡MAC地址. <br />
+					如果是虚拟机的话需要自行设置, 因为虚拟机网卡MAC地址是模拟的不能避免冲突
+				</div>
+			</fieldset>
+			<div class="modal-action mt-2">
+				<label for="mac_input_modal" class="btn btn-ghost" class:btn-disabled={pending.value}>
+					取消
+				</label>
+				<button type="submit" class="btn btn-outline btn-primary" disabled={pending.value}>
+					确认
+				</button>
+			</div>
+		</form>
+	</div>
+	<label class="modal-backdrop" for="mac_input_modal">Close</label>
+</div>
 
 <div class="container mx-auto my-6">
 	<form
@@ -124,7 +177,7 @@
 					bind:this={ip6Input}
 					disabled={pending.value}
 				/>
-				<button type="button" class="btn" onclick={mac2EUI64}>使用MAC生成</button>
+				<label for="mac_input_modal" class="btn">使用MAC生成</label>
 			</div>
 			<div class="label">设置固定 IPv6 地址, 由网卡MAC地址生成(EUI-64)</div>
 		</fieldset>
