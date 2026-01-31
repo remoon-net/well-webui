@@ -44,6 +44,7 @@
 			case p.whip2 != '':
 			case p.transport_mode.length > 0:
 			case p.ices.length > 0:
+			case p.ipv6 != '':
 				moreOptsOpened = true
 				break
 			default:

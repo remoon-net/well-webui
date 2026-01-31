@@ -16,6 +16,7 @@
 	import Connected from '@iconify-icons/heroicons/link'
 	import Copy from '@iconify-icons/heroicons/clipboard'
 	import PubkeyICON from '@iconify-icons/heroicons/computer-desktop'
+	import ImportPeerICON from '@iconify-icons/heroicons/arrow-up-tray'
 	import { copy } from 'svelte-copy'
 	let pending = withPending()
 	import { setActions } from '../header.svelte'
@@ -32,6 +33,7 @@
 			clearInterval(t)
 		}
 	})
+	import ImportPeerModal from './import-peer.svelte'
 </script>
 
 {#snippet actions()}
@@ -56,6 +58,7 @@
 	</a>
 {/snippet}
 
+<ImportPeerModal></ImportPeerModal>
 <Panel></Panel>
 <div class="container mx-auto">
 	<ul class="list">
@@ -100,14 +103,21 @@
 						</div>
 					</div>
 				</div>
+				<label
+					for="import_peer_modal"
+					class="btn btn-square btn-ghost self-center tooltip tooltip-left"
+					data-tip="导入节点"
+				>
+					<Iconify icon={ImportPeerICON}></Iconify>
+				</label>
 				<button
 					type="button"
 					class="btn btn-square btn-ghost self-center tooltip tooltip-left"
-					data-tip="复制公钥"
+					data-tip="复制节点分享链接"
 					use:copy={{
-						text: data.ds.Pubkey,
+						text: data.share_link,
 						onCopy: () => {
-							showToast({ msg: '复制公钥成功' })
+							showToast({ msg: '复制节点分享链接成功' })
 						},
 					}}
 				>

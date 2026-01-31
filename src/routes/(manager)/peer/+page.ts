@@ -1,5 +1,6 @@
 import { pb, type Peer } from '$lib/pb'
 import { redirect } from '@sveltejs/kit'
+import { fromString, toString } from 'uint8arrays'
 
 export async function load({ fetch, url, depends }) {
 	let id = url.searchParams.get('id')
@@ -21,8 +22,38 @@ export async function load({ fetch, url, depends }) {
 		whip2: '',
 		auto: 0,
 	} as any
+	let shareLink = url.searchParams.get('share_link')
 	if (id !== 'add') {
 		peer = await pb.collection<Peer>('peers').getOne(id, { fetch })
+	} else if (!!shareLink) {
+		let u = new URL(shareLink)
+
+		peer.pubkey = toString(fromString(u.hostname, 'base64url'), 'base64pad')
+
+		let pp = u.pathname.split('/')
+		let psk = pp[1] ?? ''
+		if (!!psk) {
+			psk = toString(fromString(u.hostname, 'base64url'), 'base64pad')
+			peer.psk = psk
+		}
+
+		let name = u.searchParams.get('name')
+		if (!!name) {
+			peer.name = name
+		}
+
+		let whips = u.searchParams.getAll('whip').slice(0, 2)
+		if (!!whips[0]) {
+			peer.whip = whips[0]
+		}
+		if (!!whips[1]) {
+			peer.whip2 = whips[1]
+		}
+
+		let ip6 = u.searchParams.get('ip6')
+		if (!!ip6) {
+			peer.ipv6 = ip6
+		}
 	}
 	return {
 		peer,
