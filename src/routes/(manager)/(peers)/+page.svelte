@@ -153,13 +153,11 @@
 						<span class="label">IPv4</span>:
 						<span class:label={!connected}>{p.ipv4 || '无连接地址'}</span>
 						<br />
-						{#if ip4in6}
-							<span class="label">IPv6</span>:
-							<span class:label={!connected}>{ip4in6}</span>
-							<br />
-						{/if}
 						{#if p.ipv6}
 							<span class="label">IPv6</span>: <span class:label={!connected}>{p.ipv6}</span>
+						{:else if ip4in6}
+							<span class="label">IPv6</span>:
+							<span class:label={!connected}>{ip4in6}</span>
 						{/if}
 					</div>
 				</div>
