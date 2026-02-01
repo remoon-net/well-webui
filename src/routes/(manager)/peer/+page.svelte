@@ -213,11 +213,11 @@
 						name="ipv6"
 						type="text"
 						class="input w-full"
-						placeholder="fdd9:f8ff:0:0:a2ce:c8ff:fe1a:2b3c/128"
+						placeholder="2001:00ff:0:0:a2ce:c8ff:fe1a:2b3c/128"
 						value={p.ipv6}
 						disabled={pending.value}
 					/>
-					<div class="label">一般是固定 IPv6 地址会设置这个, IP范围在 fdd9:f8ff::/32</div>
+					<div class="label">一般是固定 IPv6 地址会设置这个, IP范围在 2001:00ff::/32</div>
 				</fieldset>
 				<fieldset class="fieldset">
 					<fieldset-legend class="fieldset-legend">共享公钥 (psk)</fieldset-legend>

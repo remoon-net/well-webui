@@ -53,7 +53,7 @@
 		let s2 = parts.join(':')
 		console.log(s2)
 
-		let s3 = `fdd9:f8ff::1:${s2}`
+		let s3 = `2001:00ff::1:${s2}`
 		console.log(s3)
 		ip6Input!.value = s3
 	}
@@ -172,7 +172,7 @@
 					name="ip6_addr"
 					type="text"
 					class="input w-full"
-					placeholder="fdd9:f800::1"
+					placeholder="2001:00f0::1"
 					value={settings.ip6_addr}
 					bind:this={ip6Input}
 					disabled={pending.value}

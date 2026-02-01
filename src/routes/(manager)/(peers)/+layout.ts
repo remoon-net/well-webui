@@ -45,8 +45,8 @@ function genShareLink(ds: DeviceStatus, linkers: Linker[]) {
 		u.searchParams.append('whip', lk.whip)
 	}
 	let ip6 = ds.Routes[0]
-	if (!ip6.startsWith('fdd9:f800:')) {
-		ip6 = ip6.replace('/24', '/128')
+	if (!ip6.startsWith('2001:00f0:')) {
+		ip6 = ip6.replace('/28', '/128')
 		u.searchParams.set('ip6', ip6)
 	}
 	return u.toString()
