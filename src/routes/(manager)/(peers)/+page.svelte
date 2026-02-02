@@ -128,7 +128,7 @@
 		{#each data.peers as p, i}
 			{@const handshaked = DateTime.fromSQL(p.handshaked)}
 			{@const connected = handshaked > expired}
-			{@const ip4in6 = p.expand.ip4in6}
+			{@const ip4in6 = p?.expand?.ip4in6}
 			<li class="list-row px-0">
 				<div class="label">
 					<button
@@ -153,11 +153,13 @@
 						<span class="label">IPv4</span>:
 						<span class:label={!connected}>{p.ipv4 || '无连接地址'}</span>
 						<br />
+						<span class="label">IPv6</span>:
 						{#if p.ipv6}
-							<span class="label">IPv6</span>: <span class:label={!connected}>{p.ipv6}</span>
+							<span class:label={!connected}>{p.ipv6}</span>
 						{:else if ip4in6}
-							<span class="label">IPv6</span>:
 							<span class:label={!connected}>{ip4in6}</span>
+						{:else}
+							<span class:label={!connected}>无连接地址</span>
 						{/if}
 					</div>
 				</div>
