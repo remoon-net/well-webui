@@ -67,13 +67,13 @@
 			{@const routes = data.ds.Routes}
 			<li class="list-row px-0">
 				<div class="label">
-					<button
-						type="button"
+					<a
+						href="/settings/"
 						class="btn btn-sm btn-square btn-outline"
 						class:btn-success={connected}
 					>
 						<Iconify icon={PubkeyICON}></Iconify>
-					</button>
+					</a>
 				</div>
 				<div>
 					<div class="mb-1">
