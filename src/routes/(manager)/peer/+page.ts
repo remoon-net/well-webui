@@ -28,6 +28,7 @@ export async function load({ fetch, url, depends }) {
 	} else if (!!shareLink) {
 		let u = new URL(shareLink)
 
+		peer.ipv4 = '' // 通过分享链接导入的节点默认不设置 ipv4, 因为有很多服务监听在IPv4内网上
 		peer.pubkey = toString(fromString(u.hostname, 'base64url'), 'base64pad')
 
 		let pp = u.pathname.split('/')
