@@ -182,7 +182,7 @@
 			<div class="label">设置固定 IPv6 地址, 由网卡MAC地址生成(EUI-64)</div>
 		</fieldset>
 		<fieldset class="fieldset">
-			<fieldset-legend class="fieldset-legend">监听地址 (ip4_route)</fieldset-legend>
+			<fieldset-legend class="fieldset-legend">IPv4路由 (ip4_route)</fieldset-legend>
 			<input
 				name="ip4_route"
 				type="text"
