@@ -150,7 +150,11 @@
 					disabled={pending.value}
 					required
 				/>
-				<div class="label">服务方提供给你的中继器连接地址</div>
+				<div class="label">
+					服务方提供给你的中继器连接地址
+					<br />
+					也支持 ssh 协议. ssh://user:pass@sshd.host:22/80/127.0.0.1
+				</div>
 			</fieldset>
 			<fieldset class="fieldset">
 				<fieldset-legend class="fieldset-legend">信令地址 (whip)</fieldset-legend>
