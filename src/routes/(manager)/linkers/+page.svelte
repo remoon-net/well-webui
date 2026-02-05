@@ -131,7 +131,7 @@
 				<fieldset-legend class="fieldset-legend">
 					<span>中继器地址 (linker)*</span>
 					<div class="label">
-						禁用
+						停用
 						<input
 							name="disabled"
 							value="true"
