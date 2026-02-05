@@ -5,7 +5,7 @@ export async function load({ fetch, depends }) {
 	depends('app:peers')
 	let peers = await pb.collection<Peer>('peers').getFullList({
 		fetch,
-		sort: 'disabled',
+		sort: 'disabled,name',
 	})
 	// peers = peers.concat(peers, peers, peers)
 	// peers = peers.concat(peers, peers, peers)
