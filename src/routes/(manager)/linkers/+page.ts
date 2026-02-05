@@ -2,7 +2,10 @@ import { pb, type Linker } from '$lib/pb.js'
 
 export async function load({ fetch, depends }) {
 	depends('app:linkers')
-	let linkers = await pb.collection<Linker>('linkers').getFullList({ fetch })
+	let linkers = await pb.collection<Linker>('linkers').getFullList({
+		fetch,
+		sort: 'name',
+	})
 	return {
 		linkers,
 	}

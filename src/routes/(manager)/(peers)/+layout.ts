@@ -8,7 +8,7 @@ export async function load({ parent, depends, fetch }) {
 	depends('app:linkers')
 
 	let ds = await pb.send<DeviceStatus>('/api/ipc/device', { fetch })
-	let linkers = await pb.collection<Linker>('linkers').getFullList({ fetch })
+	let linkers = await pb.collection<Linker>('linkers').getFullList({ fetch, sort: 'name' })
 
 	let share_link = genShareLink(ds, linkers)
 	console.log(share_link)
