@@ -1,7 +1,8 @@
-import { pb } from '$lib/pb'
+import { pb, authTry } from '$lib/pb'
 import { redirect } from '@sveltejs/kit'
 
 export async function load({ url, fetch }) {
+	await authTry
 	let u = new URL('/login/', url)
 	u.searchParams.set('redirect', url.toString())
 	if (!pb.authStore.isValid) {

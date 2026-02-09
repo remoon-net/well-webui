@@ -2,7 +2,30 @@ import PocketBase, { LocalAuthStore } from 'pocketbase'
 import type { RecordModel } from 'pocketbase'
 
 const store = new LocalAuthStore('__pb_superuser_auth__')
-export const pb = new PocketBase(undefined, store)
+const pb = new PocketBase(undefined, store)
+const pb2 = new PocketBase(undefined, store)
+
+export let authTry = pb2
+	.collection('_superusers')
+	.authWithPassword('well@remoon.net', 'well@remoon.net')
+	.catch((err) => {
+		console.error('authTry failed', err)
+		return null
+	})
+
+pb.beforeSend = async (url, options) => {
+	await authTry.then((r) => {
+		if (!r) {
+			return
+		}
+		if (!options.headers?.Authorization) {
+			options.headers = Object.assign({}, options.headers, { Authorization: r.token })
+		}
+	})
+	return { url, options }
+}
+
+export { pb }
 
 export function errStr(err: any): string {
 	console.error(err)
