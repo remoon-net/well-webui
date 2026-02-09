@@ -220,7 +220,7 @@
 						<option value="true">开启</option>
 						<option value="false">不开启</option>
 					</select>
-					<div class="label">未填写的话则会使用id来做显示</div>
+					<div class="label"></div>
 				</fieldset>
 			</div>
 		</div>
