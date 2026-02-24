@@ -1,4 +1,19 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"hello_world": "Hello, {name} from zh!"
+	"peers_pubkey": "本机公钥",
+	"peers_no_whip_tip": "暂无信令中继器, 点击去设置",
+	"peers_no_assign_ip": "无连接地址",
+	"peers_import_tip": "导入节点",
+	"peers_import_title": "节点导入",
+	"peers_sharelink_input_title": "节点分享链接",
+	"peers_sharelink_input_label": "导入分享链接",
+	"peers_import_local_sharelink": "本机节点分享链接",
+	"peers_import_cancel_btn": "取消",
+	"peers_import_submit_btn": "导入",
+	"peers_sharelink_copy_tip": "复制节点分享链接",
+	"peers_sharelink_copid_tip": "复制节点分享链接成功",
+	"peers_no_more": "没有更多啦",
+	"peers_peer_disabled_status": "未启用",
+	"wg_start_failed": "WireGuard启动出错",
+	"wg_stop_failed": "WireGuard停止出错"
 }

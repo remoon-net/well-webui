@@ -34,6 +34,7 @@
 		}
 	})
 	import ImportPeerModal from './import-peer.svelte'
+	import { m } from '$lib/paraglide/messages'
 </script>
 
 {#snippet actions()}
@@ -78,7 +79,7 @@
 				<div>
 					<div class="mb-1">
 						<span>{data.ds.Pubkey}</span>
-						(本机公钥)
+						({m.peers_pubkey()})
 					</div>
 					<div>
 						<span class="label">IPv4</span>:
@@ -89,7 +90,7 @@
 						<a href="/linkers/" class="label link">WHIP</a>:
 						<div class="inline">
 							{#if data.linkers.length === 0}
-								<a href="/linkers" class="link">暂无信令中继器, 点击去设置</a>
+								<a href="/linkers" class="link">{m.peers_no_whip_tip()}</a>
 							{/if}
 							{#each data.linkers as lk}
 								{#if lk.disabled}
@@ -106,18 +107,18 @@
 				<label
 					for="import_peer_modal"
 					class="btn btn-square btn-ghost self-center tooltip tooltip-left"
-					data-tip="导入节点"
+					data-tip={m.peers_import_tip()}
 				>
 					<Iconify icon={ImportPeerICON}></Iconify>
 				</label>
 				<button
 					type="button"
 					class="btn btn-square btn-ghost self-center tooltip tooltip-left"
-					data-tip="复制节点分享链接"
+					data-tip={m.peers_sharelink_copy_tip()}
 					use:copy={{
 						text: data.share_link,
 						onCopy: () => {
-							showToast({ msg: '复制节点分享链接成功' })
+							showToast({ msg: m.peers_sharelink_copid_tip() })
 						},
 					}}
 				>
@@ -146,12 +147,12 @@
 					<div class="mb-1">
 						<span class:label={p.disabled}>{p.name || p.pubkey}</span>
 						{#if p.disabled}
-							(未启用)
+							({m.peers_peer_disabled_status()})
 						{/if}
 					</div>
 					<div>
 						<span class="label">IPv4</span>:
-						<span class:label={!connected}>{p.ipv4 || '无连接地址'}</span>
+						<span class:label={!connected}>{p.ipv4 || m.peers_no_assign_ip()}</span>
 						<br />
 						<span class="label">IPv6</span>:
 						{#if p.ipv6}
@@ -159,7 +160,7 @@
 						{:else if ip4in6}
 							<span class:label={!connected}>{ip4in6}</span>
 						{:else}
-							<span class:label={!connected}>无连接地址</span>
+							<span class:label={!connected}>{m.peers_no_assign_ip()}</span>
 						{/if}
 					</div>
 				</div>
@@ -170,7 +171,7 @@
 		{/each}
 		<li class="list-row px-0">
 			<div></div>
-			<div class="label mx-auto">没有更多啦</div>
+			<div class="label mx-auto">{m.peers_no_more()}</div>
 			<div></div>
 		</li>
 	</ul>

@@ -1,4 +1,19 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"hello_world": "Hello, {name} from en!"
+	"peers_pubkey": "Local Pubkey",
+	"peers_no_whip_tip": "No WHIP, click to add one",
+	"peers_no_assign_ip": "No Assign IP",
+	"peers_import_tip": "Peer Import",
+	"peers_import_title": "Peer Import",
+	"peers_sharelink_input_title": "peer share link",
+	"peers_sharelink_input_label": "paste peer share link",
+	"peers_import_local_sharelink": "Local Peer Share Link",
+	"peers_import_cancel_btn": "Cancel",
+	"peers_import_submit_btn": "Import",
+	"peers_sharelink_copy_tip": "Copy Peer Share Link",
+	"peers_sharelink_copid_tip": "Copy Peer Share Link OK",
+	"peers_no_more": "no more peers",
+	"peers_peer_disabled_status": "disabled",
+	"wg_start_failed": "WireGuard start failed",
+	"wg_stop_failed": "WireGuard stop failed"
 }

@@ -22,6 +22,7 @@
 	import Pause from '@iconify-icons/heroicons/pause'
 	import Play from '@iconify-icons/heroicons/play'
 	import { getShowToast } from '$lib/Toast.svelte'
+	import { m } from '$lib/paraglide/messages'
 	let showToast = getShowToast()
 </script>
 
@@ -44,7 +45,7 @@
 					(err) => {
 						showToast({
 							color: 'error',
-							msg: `WireGuard停止出错: ${errStr(err)}`,
+							msg: `${m.wg_stop_failed()}: ${errStr(err)}`,
 						})
 					},
 				)
@@ -67,7 +68,7 @@
 					(err) => {
 						showToast({
 							color: 'error',
-							msg: `WireGuard启动出错: ${errStr(err)}`,
+							msg: `${m.wg_start_failed()}: ${errStr(err)}`,
 						})
 					},
 				)

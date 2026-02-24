@@ -7,6 +7,7 @@
 	let open = $state(false)
 	const showToast = getShowToast()
 	import { page } from '$app/state'
+	import { m } from '$lib/paraglide/messages'
 	let slElem = $state<HTMLTextAreaElement>()
 	function showSelfShareLink() {
 		slElem!.value = page.data.share_link
@@ -17,10 +18,10 @@
 <div class="modal" role="dialog">
 	<div class="modal-box p-4">
 		<form action="/peer/" method="get">
-			<h3 class="text-lg font-bold">节点导入</h3>
+			<h3 class="text-lg font-bold">{m.peers_import_title()}</h3>
 			<input type="hidden" name="id" value="add" />
 			<fieldset class="fieldset">
-				<fieldset-legend class="fieldset-legend">节点分享链接</fieldset-legend>
+				<fieldset-legend class="fieldset-legend">{m.peers_sharelink_input_title()}</fieldset-legend>
 				<textarea
 					name="share_link"
 					class="textarea w-full"
@@ -29,19 +30,19 @@
 					required
 					bind:this={slElem}
 				></textarea>
-				<div class="label">导入分享链接</div>
+				<div class="label">{m.peers_sharelink_input_label()}</div>
 			</fieldset>
 			<div class="modal-action">
 				<div class="flex-1">
 					<button type="button" class="btn btn-outline" onclick={showSelfShareLink}>
-						本机节点分享链接
+						{m.peers_import_local_sharelink()}
 					</button>
 				</div>
 				<label for="import_peer_modal" class="btn btn-ghost" class:btn-disabled={pending.value}>
-					取消
+					{m.peers_import_cancel_btn()}
 				</label>
 				<button type="submit" class="btn btn-outline btn-primary" disabled={pending.value}>
-					导入
+					{m.peers_import_submit_btn()}
 				</button>
 			</div>
 		</form>
