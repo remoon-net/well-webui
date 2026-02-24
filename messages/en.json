@@ -55,7 +55,7 @@
 	"peer_updated_modal_content": "The peer has been updated successfully",
 	"peer_updated_modal_stayhere": "Continue Editing",
 	"peer_updated_modal_gohome": "Home",
-	"peer_delete_modal_title": "Confirm Node Deletion",
+	"peer_delete_modal_title": "Confirm Peer Deletion",
 	"peer_delete_modal_content": "You are about to delete this peer",
 	"peer_delete_modal_cancel": "Cancel",
 	"peer_delete_modal_submit": "Delete",
