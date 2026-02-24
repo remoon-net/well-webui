@@ -54,6 +54,7 @@
 	let pending = withPending()
 	let showToast = getShowToast()
 	import { setActions } from '../header.svelte'
+	import { m } from '$lib/paraglide/messages.js'
 	setActions(undefined)
 </script>
 
@@ -74,29 +75,29 @@
 					(err) => {
 						showToast({
 							color: 'error',
-							msg: `${!p.id ? '添加' : '更新'}节点出错: ${errStr(err)}`,
+							msg: `${!p.id ? m.peer_add_failed() : m.peer_update_failed()}: ${errStr(err)}`,
 						})
 					},
 				)
 		}}
 	>
 		<fieldset class="fieldset">
-			<fieldset-legend class="fieldset-legend">节点称呼 (name)</fieldset-legend>
+			<fieldset-legend class="fieldset-legend">{m.peer_name_input_title()}</fieldset-legend>
 			<input
 				name="name"
 				type="text"
 				class="input w-full"
-				placeholder="输入便于分辨节点的称呼"
+				placeholder={m.peer_name_input_placeholder()}
 				value={p.name}
 				disabled={pending.value}
 			/>
-			<div class="label">未填写的话则会使用id来做显示</div>
+			<div class="label">{m.peer_name_input_label()}</div>
 		</fieldset>
 		<fieldset class="fieldset">
 			<fieldset-legend class="fieldset-legend">
-				<span>公钥* (pubkey)</span>
+				<span>{m.peer_pubkey_input_title()}</span>
 				<label class="label">
-					禁用
+					{m.peer_pubkey_disabled_label()}
 					<input
 						type="checkbox"
 						name="disabled"
@@ -111,19 +112,19 @@
 				name="pubkey"
 				type="text"
 				class="input w-full"
-				placeholder="WireGuard公钥"
+				placeholder={m.peer_pubkey_input_placeholder()}
 				value={p.pubkey}
 				disabled={pending.value}
 				required
 				readonly={!!p.id}
 			/>
-			<div class="label">只读不可更改, 是节点的唯一标识</div>
+			<div class="label">{m.peer_pubkey_input_label()}</div>
 		</fieldset>
 		<fieldset class="fieldset">
 			<fieldset-legend class="fieldset-legend">
-				<span>信令地址 (whip)</span>
+				<span>{m.peer_whip_input_title()}</span>
 				<label class="label">
-					始终连接
+					{m.peer_whip_auto_label()}
 					<input
 						type="checkbox"
 						name="auto"
@@ -138,30 +139,30 @@
 				name="whip"
 				type="url"
 				class="input w-full"
-				placeholder="https://well.remoon.net/peer/xxxyyyzzz"
+				placeholder={m.peer_whip_input_placeholder()}
 				value={p.whip}
 				disabled={pending.value}
 			/>
-			<div class="label">连接地址. 启用始终连接后将会始终连接此节点</div>
+			<div class="label">{m.peer_whip_input_label()}</div>
 		</fieldset>
 		<div class="collapse collapse-arrow" class:show-x-hidden={moreOptsOpened}>
 			<input type="checkbox" bind:checked={moreOptsOpened} />
-			<div class="collapse-title ps-0">进阶选项</div>
+			<div class="collapse-title ps-0">{m.peer_advanced_options_toggle()}</div>
 			<div class="collapse-content px-0">
 				<fieldset class="fieldset">
-					<fieldset-legend class="fieldset-legend">备用连接地址 (whip2)</fieldset-legend>
+					<fieldset-legend class="fieldset-legend">{m.peer_whip2_input_title()}</fieldset-legend>
 					<input
 						name="whip2"
 						type="url"
 						class="input w-full"
-						placeholder="https://well.remoon.net/peer/xxxyyyzzz2"
+						placeholder={m.peer_whip2_input_placeholder()}
 						value={p.whip2}
 						disabled={pending.value}
 					/>
-					<div class="label">备用连接地址. 希望永不失联</div>
+					<div class="label">{m.peer_whip2_input_label()}</div>
 				</fieldset>
 				<fieldset class="fieldset">
-					<fieldset-legend class="fieldset-legend">连接策略 (transport_mode)</fieldset-legend>
+					<fieldset-legend class="fieldset-legend">{m.peer_tm_input_title()}</fieldset-legend>
 					<div>
 						<input
 							class="btn btn-sm"
@@ -191,53 +192,53 @@
 						/>
 					</div>
 					<div class="label">
-						NoWebSocket: 节省流量, 只使用p2p发送数据, 但有可能会连接失败<br />
-						NoWebRTC: 可以保护你的隐私, 但这将会完全使用服务器中转, 极其消耗流量
+						NoWebSocket: {m.peer_tm_nowsc_label()}<br />
+						NoWebRTC: {m.peer_tm_nowrtc_label()}
 					</div>
 				</fieldset>
 				<fieldset class="fieldset">
-					<fieldset-legend class="fieldset-legend">IPv4</fieldset-legend>
+					<fieldset-legend class="fieldset-legend">{m.peer_ip4_input_title()}</fieldset-legend>
 					<input
 						name="ipv4"
 						type="text"
 						class="input w-full"
-						placeholder="填auto就是自动选择一个IPv4地址来使用"
+						placeholder={m.peer_ip4_input_placeholder()}
 						value={p.ipv4}
 						disabled={pending.value}
 					/>
-					<div class="label">有很多旧的系统只支持IPv4, 所以需要这个, 一般来说更推荐使用IPv6</div>
+					<div class="label">{m.peer_ip4_input_label()}</div>
 				</fieldset>
 				<fieldset class="fieldset">
-					<fieldset-legend class="fieldset-legend">IPv6</fieldset-legend>
+					<fieldset-legend class="fieldset-legend">{m.peer_ip6_input_title()}</fieldset-legend>
 					<input
 						name="ipv6"
 						type="text"
 						class="input w-full"
-						placeholder="2001:00ff:0:0:a2ce:c8ff:fe1a:2b3c/128"
+						placeholder={m.peer_ip6_input_placeholder()}
 						value={p.ipv6}
 						disabled={pending.value}
 					/>
-					<div class="label">一般是固定 IPv6 地址会设置这个, IP范围在 2001:00ff::/32</div>
+					<div class="label">{m.peer_ip6_input_label()}</div>
 				</fieldset>
 				<fieldset class="fieldset">
-					<fieldset-legend class="fieldset-legend">共享公钥 (psk)</fieldset-legend>
+					<fieldset-legend class="fieldset-legend">{m.peer_psk_input_title()}</fieldset-legend>
 					<input
 						name="psk"
 						type="text"
 						class="input w-full"
-						placeholder="由 wg genpsk 生成"
+						placeholder={m.peer_psk_input_placeholder()}
 						value={p.psk}
 						disabled={pending.value}
 					/>
 					<div class="label">
-						这个共享公钥据说可以用以对抗后量子时代, 但目前感觉没啥用, 所以放在高级选项中
+						{m.peer_psk_input_label()}
 					</div>
 				</fieldset>
 				<fieldset class="fieldset">
 					<fieldset-legend class="fieldset-legend">
-						<span>打洞服务器 (ices)</span>
+						<span>{m.peer_ices_input_title()}</span>
 						<label class="label">
-							使用默认的
+							{m.peer_ices_default_label()}
 							<input
 								type="checkbox"
 								name="ices"
@@ -255,7 +256,7 @@
 						disabled={pending.value || useDefaultICEs}
 					>
 						{#if data.ices.length == 0}
-							<option value=""> 使用默认打洞服务器 </option>
+							<option value="">{m.peer_ices_input_placeholder()}</option>
 						{/if}
 						{#each data.ices as ice}
 							<option value={ice.id} selected={p.ices.includes(ice.id)}>
@@ -265,7 +266,8 @@
 					</select>
 					<div class="label">
 						<div>
-							<a href="/ices/" class="link">打洞服务器</a>用于建立公网直连
+							<a href="/ices/" class="link">{m.link_ices()}</a>
+							{m.peer_ices_input_label()}
 						</div>
 					</div>
 				</fieldset>
@@ -274,9 +276,9 @@
 		<div class="my-6">
 			<button type="submit" class="btn btn-primary btn-block my-1" disabled={pending.value}>
 				{#if p.id}
-					更新
+					{m.peer_form_update_btn()}
 				{:else}
-					添加
+					{m.peer_form_add_btn()}
 				{/if}
 			</button>
 			<label
@@ -285,7 +287,7 @@
 				class:btn-disabled={pending.value}
 				class:hidden={!p.id}
 			>
-				删除
+				{m.peer_form_del_btn()}
 			</label>
 		</div>
 	</form>
@@ -299,11 +301,11 @@
 />
 <div class="modal" role="dialog">
 	<div class="modal-box">
-		<h3 class="text-lg font-bold">节点更新成功</h3>
-		<p class="py-4 break-all">节点已经更新成功:<br />{p.name}({p.pubkey})</p>
+		<h3 class="text-lg font-bold">{m.peer_updated_modal_title()}</h3>
+		<p class="py-4 break-all">{m.peer_updated_modal_content()}:<br />{p.name}({p.pubkey})</p>
 		<div class="modal-action">
 			<label for="peer-updated-modal" class="btn btn-outline" class:btn-disabled={pending.value}>
-				继续编辑
+				{m.peer_updated_modal_stayhere()}
 			</label>
 			<a
 				href="/"
@@ -313,7 +315,7 @@
 					history.back()
 				}}
 			>
-				回到主页
+				{m.peer_updated_modal_gohome()}
 			</a>
 		</div>
 	</div>
@@ -324,11 +326,11 @@
 <input type="checkbox" id="peer-delete-modal" class="modal-toggle" />
 <div class="modal" role="dialog">
 	<div class="modal-box">
-		<h3 class="text-lg font-bold">节点删除确认</h3>
-		<p class="py-4 break-all">你将要删除节点:<br />{p.name}({p.pubkey})</p>
+		<h3 class="text-lg font-bold">{m.peer_delete_modal_title()}</h3>
+		<p class="py-4 break-all">{m.peer_delete_modal_content()}:<br />{p.name}({p.pubkey})</p>
 		<div class="modal-action">
 			<label for="peer-delete-modal" class="btn btn-outline" class:btn-disabled={pending.value}>
-				取消
+				{m.peer_delete_modal_cancel()}
 			</label>
 			<button
 				type="button"
@@ -343,14 +345,14 @@
 							(err) => {
 								showToast({
 									color: 'error',
-									msg: `节点删除出错: ${errStr(err)}`,
+									msg: `${m.peer_delete_failed()}: ${errStr(err)}`,
 								})
 							},
 						)
 				}}
 				disabled={pending.value}
 			>
-				删除
+				{m.peer_delete_modal_submit()}
 			</button>
 		</div>
 	</div>
