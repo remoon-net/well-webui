@@ -5,6 +5,7 @@
 	import { getShowToast } from '$lib/Toast.svelte'
 	import { goto, invalidate } from '$app/navigation'
 	import { errStr, pb } from '$lib/pb.js'
+	import { m } from '$lib/paraglide/messages.js'
 	setActions(undefined)
 	let pending = withPending()
 	let { data } = $props()
@@ -30,7 +31,7 @@
 		if (bytes.length !== 6) {
 			showToast({
 				color: 'error',
-				msg: '错误的MAC地址!',
+				msg: m.settings_fixed_ip6_modal_submit_wrong_mac_addr(),
 			})
 			return
 		}
@@ -83,29 +84,31 @@
 				open = false
 			}}
 		>
-			<h3 class="text-lg font-bold">节点导入</h3>
+			<h3 class="text-lg font-bold">{m.settings_fixed_ip6_modal_title()}</h3>
 			<input type="hidden" name="id" value="add" />
 			<fieldset class="fieldset">
-				<fieldset-legend class="fieldset-legend">网卡MAC地址</fieldset-legend>
+				<fieldset-legend class="fieldset-legend"
+					>{m.settings_fixed_ip6_modal_mac_input_title()}</fieldset-legend
+				>
 				<input
 					type="text"
 					class="input w-full"
 					name="mac"
 					value={settings.mac}
 					bind:this={macInput}
+					placeholder={m.settings_fixed_ip6_modal_mac_input_placeholder()}
 					required
 				/>
 				<div class="label">
-					默认有的话是获取到的第一张网卡MAC地址. <br />
-					如果是虚拟机的话需要自行设置, 因为虚拟机网卡MAC地址是模拟的不能避免冲突
+					{@html m.settings_fixed_ip6_modal_mac_input_label()}
 				</div>
 			</fieldset>
 			<div class="modal-action mt-2">
 				<label for="mac_input_modal" class="btn btn-ghost" class:btn-disabled={pending.value}>
-					取消
+					{m.settings_fixed_ip6_modal_close()}
 				</label>
 				<button type="submit" class="btn btn-outline btn-primary" disabled={pending.value}>
-					确认
+					{m.settings_fixed_ip6_modal_submit()}
 				</button>
 			</div>
 		</form>
@@ -127,26 +130,26 @@
 				.then(
 					() => {
 						showToast({
-							msg: `更新设置成功`,
+							msg: m.settings_form_submit_ok(),
 						})
 					},
 					(err) => {
 						showToast({
 							color: 'error',
-							msg: `更新设置出错: ${errStr(err)}`,
+							msg: `${m.settings_form_submit_failed()}: ${errStr(err)}`,
 						})
 					},
 				)
 		}}
 	>
 		<fieldset class="fieldset">
-			<fieldset-legend class="fieldset-legend">本机私钥 (wg_key)</fieldset-legend>
+			<fieldset-legend class="fieldset-legend">{m.settings_wg_key_input_title()}</fieldset-legend>
 			<div class="join">
 				<input
 					name="wg_key"
 					type="text"
 					class="input w-full join-item"
-					placeholder="wg genpsk生成"
+					placeholder={m.settings_wg_key_input_placeholder()}
 					value={settings.wg_key}
 					disabled={pending.value}
 					readonly={wgkeyReadonly}
@@ -160,78 +163,81 @@
 						wgkeyReadonly = false
 					}}
 				>
-					修改
+					{m.settings_change_enable_btn_label()}
 				</label>
 			</div>
-			<div class="label">修改私钥将会导致其他节点无法连接你, 谨慎修改</div>
+			<div class="label">{m.settings_wg_key_input_label()}</div>
 		</fieldset>
 		<fieldset class="fieldset">
-			<fieldset-legend class="fieldset-legend">固定 IPv6 地址 (ip6_addr)</fieldset-legend>
+			<fieldset-legend class="fieldset-legend">{m.settings_ip6_addr_input_title()}</fieldset-legend>
 			<div class="join">
 				<input
 					name="ip6_addr"
 					type="text"
 					class="input w-full"
-					placeholder="2001:00f0::1"
+					placeholder={m.settings_ip6_addr_input_placeholder()}
 					value={settings.ip6_addr}
 					bind:this={ip6Input}
 					disabled={pending.value}
 				/>
-				<label for="mac_input_modal" class="btn">使用MAC生成</label>
+				<label for="mac_input_modal" class="btn">{m.settings_ip6_addr_gen_by_mac_label()}</label>
 			</div>
-			<div class="label">设置固定 IPv6 地址, 由网卡MAC地址生成(EUI-64)</div>
+			<div class="label">{m.settings_ip6_addr_input_placeholder()}</div>
 		</fieldset>
 		<fieldset class="fieldset">
-			<fieldset-legend class="fieldset-legend">IPv4路由 (ip4_route)</fieldset-legend>
+			<fieldset-legend class="fieldset-legend">{m.settings_ip4_route_input_title()}</fieldset-legend
+			>
 			<input
 				name="ip4_route"
 				type="text"
 				class="input w-full"
-				placeholder="192.168.211.1/20"
+				placeholder={m.settings_ip4_route_input_placeholder()}
 				value={settings.ip4_route}
 				disabled={pending.value}
 			/>
-			<div class="label">IPv4路由冲突的话可以修改这个</div>
+			<div class="label">{m.settings_ip4_route_input_label()}</div>
 		</fieldset>
 		<div class="join flex gap-4">
 			<div class="join-item flex-1">
 				<fieldset class="fieldset">
-					<fieldset-legend class="fieldset-legend">Tun (tun)</fieldset-legend>
+					<fieldset-legend class="fieldset-legend">{m.settings_tun_input_title()}</fieldset-legend>
 					<input
 						name="tun"
 						type="text"
 						class="input w-full"
-						placeholder="well-net"
+						placeholder={m.settings_tun_input_placeholder()}
 						value={settings.tun}
 						disabled={pending.value}
 					/>
-					<div class="label">tun设备名称</div>
+					<div class="label">{m.settings_tun_input_label()}</div>
 				</fieldset>
 			</div>
 			<div class="join-item flex-1">
 				<fieldset class="fieldset">
-					<fieldset-legend class="fieldset-legend">随应用启动 (auto_start)</fieldset-legend>
+					<fieldset-legend class="fieldset-legend"
+						>{m.settings_auto_start_input_title()}</fieldset-legend
+					>
 					<select
 						name="auto_start"
 						class="select w-full"
 						value={`${settings.auto_start}`}
 						disabled={pending.value}
 					>
-						<option value="true">开启</option>
-						<option value="false">不开启</option>
+						<option value="true">{m.settings_auto_start_input_opt_enable()}</option>
+						<option value="false">{m.settings_auto_start_input_opt_disable()}</option>
 					</select>
-					<div class="label"></div>
+					<div class="label">{m.settings_auto_start_input_label()}</div>
 				</fieldset>
 			</div>
 		</div>
 		<fieldset class="fieldset">
-			<fieldset-legend class="fieldset-legend">监听地址 (listen)</fieldset-legend>
+			<fieldset-legend class="fieldset-legend">{m.settings_listen_input_title()}</fieldset-legend>
 			<div class="join">
 				<input
 					name="listen"
 					type="text"
 					class="input w-full join-item"
-					placeholder="127.0.0.1:7799"
+					placeholder={m.settings_listen_input_placeholder()}
 					value={settings.listen}
 					disabled={pending.value}
 					readonly={listenReadonly}
@@ -248,25 +254,25 @@
 						listenReadonly = false
 					}}
 				>
-					修改
+					{m.settings_change_enable_btn_label()}
 				</label>
 			</div>
-			<div class="label">监听地址修改后需要重启并会跳转到新地址</div>
+			<div class="label">{m.settings_listen_input_label()}</div>
 		</fieldset>
 		<div class="my-6">
 			<button type="submit" class="btn btn-primary btn-block my-1" disabled={pending.value}>
 				{#if newSite != data.settings.listen}
-					保存后退出并重启
+					{m.settings_form_submit_with_restart_app()}
 				{:else}
 					<!--  -->
 					{#if settings.running}
-						保存并重启
+						{m.settings_form_submit_with_restart_vpn()}
 					{:else}
-						保存
+						{m.settings_form_submit_with_save()}
 					{/if}
 				{/if}
 			</button>
-			<div class="label text-sm">此处的配置需要重启后才能生效</div>
+			<div class="label text-sm">{m.settings_form_submit_label()}</div>
 		</div>
 	</form>
 </div>
