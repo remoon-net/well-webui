@@ -152,5 +152,16 @@
 	"ices_del_modal_submit_btn": "删除",
 	"ices_del_modal_submit_failed": "ICE删除出错",
 	"ices_item_default_tip": "默认使用",
-	"ices_item_no_more": "没有更多啦"
+	"ices_item_no_more": "没有更多啦",
+	"login_card_title": "登录",
+	"login_card_report": "反馈",
+	"login_email_input_title": "邮箱",
+	"login_email_input_placeholder": "管理员邮箱帐号",
+	"login_email_input_label": "默认邮箱是:",
+	"login_password_input_title": "密码",
+	"login_password_input_placeholder": "密码最短需要8位",
+	"login_password_input_label": "默认密码是:",
+	"login_card_submit_btn": "登录",
+	"login_card_submit_ok": "登录成功",
+	"login_card_submit_failed": "登录出错"
 }

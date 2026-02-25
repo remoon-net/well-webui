@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation'
 	import { page } from '$app/state'
+	import { m } from '$lib/paraglide/messages'
 	import { errStr, pb } from '$lib/pb'
 	import { withPending } from '$lib/pending.svelte'
 	import { getShowToast } from '$lib/Toast.svelte'
@@ -32,40 +33,40 @@
 							})
 							.then(
 								() => {
-									showToast({ msg: '登录成功' })
+									showToast({ msg: m.login_card_submit_ok() })
 								},
 								(err) => {
 									showToast({
 										color: 'error',
-										msg: `登录出错: ${errStr(err)}`,
+										msg: `${m.login_card_submit_failed()}: ${errStr(err)}`,
 									})
 								},
 							)
 					}}
 				>
 					<div class="flex items-center justify-between">
-						<h2 class="card-title text-xl">登录</h2>
+						<h2 class="card-title text-xl">{m.login_card_title()}</h2>
 						<a
 							href="https://github.com/remoon-net/well/issues"
 							class="link"
 							target="source_repo_issues"
 						>
-							反馈
+							{m.login_card_report()}
 						</a>
 					</div>
 					<fieldset class="fieldset">
-						<fieldset-legend class="fieldset-legend">邮箱</fieldset-legend>
+						<fieldset-legend class="fieldset-legend">{m.login_email_input_title()}</fieldset-legend>
 						<input
 							name="email"
 							type="email"
 							class="input w-full"
-							placeholder="管理员邮箱帐号"
+							placeholder={m.login_email_input_placeholder()}
 							bind:value={email}
 							disabled={pending.value}
 							required
 						/>
 						<div class="label">
-							默认邮箱是:
+							{m.login_email_input_label()}
 							<a
 								href="#"
 								class="link"
@@ -80,18 +81,20 @@
 						</div>
 					</fieldset>
 					<fieldset class="fieldset">
-						<fieldset-legend class="fieldset-legend">密码</fieldset-legend>
+						<fieldset-legend class="fieldset-legend"
+							>{m.login_password_input_title()}</fieldset-legend
+						>
 						<input
 							name="password"
 							type="password"
 							class="input w-full"
-							placeholder="密码最短需要8位"
+							placeholder={m.login_password_input_placeholder()}
 							bind:value={pass}
 							required
 							disabled={pending.value}
 						/>
 						<div class="label">
-							默认密码是:
+							{m.login_password_input_label()}
 							<a
 								href="#"
 								class="link"
@@ -107,7 +110,7 @@
 					</fieldset>
 					<div class="card-actions mt-4">
 						<button type="submit" class="btn btn-primary w-full" disabled={pending.value}>
-							登录
+							{m.login_card_submit_btn()}
 						</button>
 					</div>
 				</form>

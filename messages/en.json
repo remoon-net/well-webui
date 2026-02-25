@@ -152,5 +152,16 @@
 	"ices_del_modal_submit_btn": "Delete",
 	"ices_del_modal_submit_failed": "Failed to delete ICE",
 	"ices_item_default_tip": "Used as default",
-	"ices_item_no_more": "No more items"
+	"ices_item_no_more": "No more items",
+	"login_card_title": "Login",
+	"login_card_report": "Report",
+	"login_email_input_title": "Email",
+	"login_email_input_placeholder": "Administrator email account",
+	"login_email_input_label": "Default email is:",
+	"login_password_input_title": "Password",
+	"login_password_input_placeholder": "Password must be at least 8 characters",
+	"login_password_input_label": "Default password is:",
+	"login_card_submit_btn": "Login",
+	"login_card_submit_ok": "Login successful",
+	"login_card_submit_failed": "Login failed"
 }
