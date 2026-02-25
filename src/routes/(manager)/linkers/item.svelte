@@ -13,6 +13,7 @@
 	import Connected from '@iconify-icons/heroicons/link'
 	import { withPending } from '$lib/pending.svelte'
 	import { invalidate } from '$app/navigation'
+	import { m } from '$lib/paraglide/messages'
 	let pending = withPending()
 </script>
 
@@ -28,7 +29,7 @@
 					await invalidate('app:linkers')
 				})
 			}}
-			data-tip="点击启用"
+			data-tip={m.linkers_item_enable_tip()}
 		>
 			<Iconify icon={Play}></Iconify>
 		</button>
@@ -40,7 +41,7 @@
 			onclick={() => {
 				editLinker(linker)
 			}}
-			data-tip="已连接"
+			data-tip={m.linkers_item_connected_tip()}
 		>
 			<Iconify icon={Connected}></Iconify>
 		</button>
@@ -56,7 +57,7 @@
 					await invalidate('app:linkers')
 				})
 			}}
-			data-tip="点击停止"
+			data-tip={m.linkers_item_stop_tip()}
 		>
 			<span class="loading loading-spinner loading-sm">connecting</span>
 		</button>
@@ -67,12 +68,12 @@
 				{linker.name || linker.id}
 			</span>
 			{#if linker.disabled}
-				(停用)
+				{m.linkers_item_status_disabled()}
 			{:else if linker.status === LinkerStatus.Connected}
-				(已连接)
+				{m.linkers_item_status_connected()}
 			{:else}
 				<!-- {:else if linker.status === LinkerStatus.Connecting} -->
-				(连接中)
+				{m.linkers_item_status_connecting()}
 			{/if}
 		</h3>
 		<p>

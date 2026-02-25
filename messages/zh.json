@@ -118,5 +118,11 @@
 	"linkers_del_modal_content": "你将要删除Linker",
 	"linkers_del_modal_close_btn": "取消",
 	"linkers_del_modal_submit_btn": "删除",
-	"linkers_del_modal_submit_failed": "Linker删除出错"
+	"linkers_del_modal_submit_failed": "Linker删除出错",
+	"linkers_item_enable_tip": "点击启用",
+	"linkers_item_connected_tip": "已连接",
+	"linkers_item_stop_tip": "点击停止",
+	"linkers_item_status_connected": "(已连接)",
+	"linkers_item_status_connecting": "(连接中)",
+	"linkers_item_status_disabled": "(停用)"
 }

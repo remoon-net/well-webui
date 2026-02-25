@@ -118,5 +118,11 @@
 	"linkers_del_modal_content": "You are about to delete Linker",
 	"linkers_del_modal_close_btn": "Cancel",
 	"linkers_del_modal_submit_btn": "Delete",
-	"linkers_del_modal_submit_failed": "Failed to delete Linker"
+	"linkers_del_modal_submit_failed": "Failed to delete Linker",
+	"linkers_item_enable_tip": "Click to enable",
+	"linkers_item_connected_tip": "Connected",
+	"linkers_item_stop_tip": "Click to stop",
+	"linkers_item_status_connected": "(Connected)",
+	"linkers_item_status_connecting": "(Connecting)",
+	"linkers_item_status_disabled": "(Disabled)"
 }
