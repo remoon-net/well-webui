@@ -38,6 +38,7 @@
 	let moreOptsOpened = $state(false)
 	import { setActions } from '../header.svelte'
 	import { getShowToast } from '$lib/Toast.svelte'
+	import { m } from '$lib/paraglide/messages.js'
 	setActions(actions)
 	const showToast = getShowToast()
 </script>
@@ -59,7 +60,7 @@
 	<ul class="list">
 		{#each data.ices as ice}
 			<li class="list-row px-0">
-				<div class="label tooltip tooltip-right" data-tip="默认使用">
+				<div class="label tooltip tooltip-right" data-tip={m.ices_item_default_tip()}>
 					<input
 						type="checkbox"
 						class="checkbox"
@@ -93,7 +94,7 @@
 		{/each}
 		<li class="list-row px-0">
 			<div></div>
-			<div class="label mx-auto">没有更多啦</div>
+			<div class="label mx-auto">{m.ices_item_no_more()}</div>
 			<div></div>
 		</li>
 	</ul>
@@ -117,7 +118,7 @@
 						(err) => {
 							showToast({
 								color: 'error',
-								msg: `ICE更新出错: ${errStr(err)}`,
+								msg: `${m.ices_update_modal_update_failed()}: ${errStr(err)}`,
 							})
 						},
 					)
@@ -125,28 +126,28 @@
 		>
 			<h3 class="text-lg font-bold">
 				{#if iceState.id}
-					更新STUN
+					{m.ices_update_modal_update_title()}
 				{:else}
-					添加STUN
+					{m.ices_update_modal_add_title()}
 				{/if}
 			</h3>
 			<fieldset class="fieldset">
-				<fieldset-legend class="fieldset-legend">称呼 (name)</fieldset-legend>
+				<fieldset-legend class="fieldset-legend">{m.ices_name_input_title()}</fieldset-legend>
 				<input
 					name="name"
 					type="text"
 					class="input w-full"
-					placeholder="输入便于分辨的称呼"
+					placeholder={m.ices_name_input_placeholder()}
 					bind:value={iceState.name}
 					disabled={pending.value}
 				/>
-				<div class="label">未填写的话则会使用id来做显示</div>
+				<div class="label">{m.ices_name_input_label()}</div>
 			</fieldset>
 			<fieldset class="fieldset">
 				<fieldset-legend class="fieldset-legend">
-					<span> 地址 (urls)* </span>
+					<span>{m.ices_urls_input_title()}</span>
 					<div class="label">
-						默认使用
+						{m.ices_urls_default_toggle_btn()}
 						<input
 							name="default"
 							value="true"
@@ -160,40 +161,44 @@
 					name="urls"
 					type="url"
 					class="input w-full"
-					placeholder="stun:stun.remoon.net:80"
+					placeholder={m.ices_urls_input_placeholder()}
 					bind:value={iceState.urls}
 					disabled={pending.value}
 					required
 				/>
-				<div class="label">填stun服务器即可</div>
+				<div class="label">{m.ices_urls_input_label()}</div>
 			</fieldset>
 			<div class="collapse collapse-arrow" class:show-x-hidden={moreOptsOpened}>
 				<input type="checkbox" bind:checked={moreOptsOpened} />
-				<div class="collapse-title ps-0">认证选项</div>
+				<div class="collapse-title ps-0">{m.ices_auth_options_toggle()}</div>
 				<div class="collapse-content p-0">
 					<fieldset class="fieldset">
-						<fieldset-legend class="fieldset-legend">用户名 (username)</fieldset-legend>
+						<fieldset-legend class="fieldset-legend"
+							>{m.ices_username_input_title()}</fieldset-legend
+						>
 						<input
 							name="username"
 							type="text"
 							class="input w-full"
-							placeholder="TURN Server 用户名"
+							placeholder={m.ices_username_input_placeholder()}
 							bind:value={iceState.username}
 							disabled={pending.value}
 						/>
-						<div class="label">TURN Server 用户名</div>
+						<div class="label">{m.ices_username_input_label()}</div>
 					</fieldset>
 					<fieldset class="fieldset">
-						<fieldset-legend class="fieldset-legend">密码 (credential)</fieldset-legend>
+						<fieldset-legend class="fieldset-legend"
+							>{m.ices_credential_input_title()}</fieldset-legend
+						>
 						<input
 							name="credential"
 							type="text"
 							class="input w-full"
-							placeholder="TURN Server 密码"
+							placeholder={m.ices_credential_input_placeholder()}
 							bind:value={iceState.credential}
 							disabled={pending.value}
 						/>
-						<div class="label">只支持密码方式认证</div>
+						<div class="label">{m.ices_credential_input_label()}</div>
 					</fieldset>
 				</div>
 			</div>
@@ -208,18 +213,18 @@
 								deleteModalOpen = true
 							}}
 						>
-							删除
+							{m.ices_update_modal_delete_btn()}
 						</button>
 					{/if}
 				</div>
 				<label for="peer-update-modal" class="btn btn-outline" class:btn-disabled={pending.value}>
-					取消
+					{m.ices_update_modal_cancel_btn()}
 				</label>
 				<button type="submit" class="btn btn-primary" disabled={pending.value}>
 					{#if iceState.id}
-						更新
+						{m.ices_update_modal_update_btn()}
 					{:else}
-						添加
+						{m.ices_update_modal_add_btn()}
 					{/if}
 				</button>
 			</div>
@@ -231,15 +236,15 @@
 <input type="checkbox" id="peer-delete-modal" class="modal-toggle" bind:checked={deleteModalOpen} />
 <div class="modal" role="dialog">
 	<div class="modal-box">
-		<h3 class="text-lg font-bold">ICE删除确认</h3>
+		<h3 class="text-lg font-bold">{m.ices_del_modal_title()}</h3>
 		<p class="py-4 break-all">
-			你将要删除ICE:<br />
+			{m.ices_del_modal_content()}:<br />
 			<b>{iceState.name || iceState.id}</b><br />
 			{iceState.urls}
 		</p>
 		<div class="modal-action">
 			<label for="peer-delete-modal" class="btn btn-outline" class:btn-disabled={pending.value}>
-				取消
+				{m.ices_del_modal_cancel_btn()}
 			</label>
 			<button
 				type="button"
@@ -256,14 +261,14 @@
 							(err) => {
 								showToast({
 									color: 'error',
-									msg: `ICE删除出错: ${errStr(err)}`,
+									msg: `${m.ices_del_modal_submit_failed()}: ${errStr(err)}`,
 								})
 							},
 						)
 				}}
 				disabled={pending.value}
 			>
-				删除
+				{m.ices_del_modal_submit_btn()}
 			</button>
 		</div>
 	</div>
