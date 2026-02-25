@@ -4,6 +4,7 @@
 	import { page } from '$app/state'
 	import { setContext, type Snippet } from 'svelte'
 	import { beforeNavigate } from '$app/navigation'
+	import { m } from '$lib/paraglide/messages'
 	let actions = $state<Snippet>()
 	setContext(ctxKey, (btns: Snippet) => {
 		actions = btns
@@ -16,19 +17,19 @@
 			{actions}
 			navs={[
 				{
-					name: '主页',
+					name: m.navs_home_title(),
 					link: '/',
 				},
 				{
-					name: '信令中继器',
+					name: m.navs_linkers_title(),
 					link: '/linkers/',
 				},
 				{
-					name: '打洞服务器',
+					name: m.navs_ices_title(),
 					link: '/ices/',
 				},
 				{
-					name: '设置',
+					name: m.navs_settings_title(),
 					link: '/settings/',
 					// disabled: true,
 				},

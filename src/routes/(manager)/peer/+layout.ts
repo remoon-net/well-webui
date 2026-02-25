@@ -1,3 +1,4 @@
+import { m } from '$lib/paraglide/messages.js'
 import { pb, type ICE } from '$lib/pb'
 
 export async function load({ parent, depends, fetch, url }) {
@@ -8,7 +9,10 @@ export async function load({ parent, depends, fetch, url }) {
 	let add = url.searchParams.get('id') == 'add'
 
 	return {
-		subnavs: [...subnavs, { name: add ? '节点添加' : '节点编辑', link: '/peer/' }],
+		subnavs: [
+			...subnavs,
+			{ name: add ? m.navs_peer_add_title() : m.navs_peer_edit_title(), link: '/peer/' },
+		],
 		ices,
 	}
 }

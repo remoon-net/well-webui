@@ -26,6 +26,7 @@
 	import CloseSide from '@iconify-icons/heroicons/chevron-left'
 	import { page } from '$app/state'
 	import { beforeNavigate } from '$app/navigation'
+	import { m } from '$lib/paraglide/messages'
 	let navs2 = $derived((page.data.subnavs as Nav[]).slice(-2).reverse())
 	let opened = $state(false)
 	beforeNavigate(() => {
@@ -67,7 +68,7 @@
 	<div class="drawer-side">
 		<label for="drawer-nav" aria-label="close sidebar" class="drawer-overlay"></label>
 		<ul tabindex="-1" class="menu menu-lg min-h-full bg-base-100 z-1 w-80 shadow">
-			<li class="menu-title">更多设置</li>
+			<li class="menu-title">{m.navs_drawer_title()}</li>
 			{#each navs as nav, i}
 				{@const active = false}
 				<li class:menu-disabled={nav.disabled}>
@@ -86,7 +87,7 @@
 			{/each}
 			<li>
 				<label for="drawer-nav">
-					收起侧边栏<Icon icon={CloseSide}></Icon>
+					{m.navs_drawer_close_btn()}<Icon icon={CloseSide}></Icon>
 				</label>
 			</li>
 		</ul>
